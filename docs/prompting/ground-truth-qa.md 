@@ -1,0 +1,163 @@
+# Ground-Truth Q&A (20)
+
+> 8 simple factual (~40%), 12 multi-doc (~60%).
+
+### Q01 — Return window length
+- **Type:** factual
+- **User question:** How long is the standard return window at ShopLite?
+- **Expected answer (1–2 sentences):** 30 days from the delivery date.
+- **Source docs (titles):** Returns & Refunds
+- **Required keywords:** ["30-day","delivery"]
+- **Forbidden words/phrases:** ["60-day"]
+
+### Q02 — Start a return
+- **Type:** factual
+- **User question:** Where do I start a return request?
+- **Expected answer (1–2 sentences):** From Your Orders; select the order and start a return to get an RMA.
+- **Source docs (titles):** Returns & Refunds; Orders & Tracking
+- **Required keywords:** ["Your Orders","RMA"]
+- **Forbidden words/phrases:** ["email support to begin"]
+
+### Q03 — Order statuses
+- **Type:** factual
+- **User question:** Name two possible order statuses.
+- **Expected answer:** Processing, Shipped, Out for delivery, or Delivered.
+- **Source docs (titles):** Orders & Tracking
+- **Required keywords:** ["Processing","Shipped"]
+- **Forbidden words/phrases:** ["Manufacturing"]
+
+### Q04 — 3-D Secure failure
+- **Type:** factual
+- **User question:** What if 3-D Secure fails?
+- **Expected answer:** Authorization fails; the order isn’t processed.
+- **Source docs (titles):** Payments
+- **Required keywords:** ["3-D Secure","fails"]
+- **Forbidden words/phrases:** ["order proceeds"]
+
+### Q05 — Refund timing
+- **Type:** factual
+- **User question:** How long after inspection are refunds issued?
+- **Expected answer:** 5–10 business days.
+- **Source docs (titles):** Returns & Refunds
+- **Required keywords:** ["5–10 business days"]
+- **Forbidden words/phrases:** ["same day"]
+
+### Q06 — Address change after ship
+- **Type:** factual
+- **User question:** Can I change the address after the order shipped?
+- **Expected answer:** No; changes only before Shipped.
+- **Source docs (titles):** Orders & Tracking
+- **Required keywords:** ["before Shipped"]
+- **Forbidden words/phrases:** ["anytime"]
+
+### Q07 — Promo stacking
+- **Type:** factual
+- **User question:** Can I stack promotions by default?
+- **Expected answer:** No—single promo unless explicitly allowed.
+- **Source docs (titles):** Promotions & Coupons
+- **Required keywords:** ["single promo"]
+- **Forbidden words/phrases:** ["always stackable"]
+
+### Q08 — Incentivized reviews
+- **Type:** factual
+- **User question:** Are incentives for positive reviews allowed?
+- **Expected answer:** No; prohibited.
+- **Source docs (titles):** Reviews & Ratings
+- **Required keywords:** ["prohibited","incentives"]
+- **Forbidden words/phrases:** ["encouraged"]
+
+### Q09 — Late delivery + refund
+- **Type:** multi-doc
+- **User question:** My order is 3 days past ETA—what should I do, and can I get a refund if it never arrives?
+- **Expected answer:** Contact Support with your order ID; if the package is lost, we open a carrier claim and refund per policy.
+- **Source docs (titles):** Orders & Tracking; Returns & Refunds; Customer Support
+- **Required keywords:** ["carrier claim","order ID","refund"]
+- **Forbidden words/phrases:** ["wait indefinitely"]
+
+### Q10 — Defective item return shipping
+- **Type:** multi-doc
+- **User question:** Do I pay return shipping for a defective item?
+- **Expected answer:** No; return shipping is free for defective/mis-shipped items. Start from Your Orders to get an RMA.
+- **Source docs (titles):** Returns & Refunds; Orders & Tracking
+- **Required keywords:** ["free","RMA","Your Orders"]
+- **Forbidden words/phrases:** ["customer pays"]
+
+### Q11 — Address change & split shipments
+- **Type:** multi-doc
+- **User question:** I chose split shipments and need to change the address—options?
+- **Expected answer:** Address change only before Shipped. If some items shipped, cancel remaining unshipped items and reorder.
+- **Source docs (titles):** Orders & Tracking; Cart & Checkout
+- **Required keywords:** ["before Shipped","cancel","reorder"]
+- **Forbidden words/phrases:** ["carrier redirect after shipped"]
+
+### Q12 — Promo & refunds
+- **Type:** multi-doc
+- **User question:** If I return an item bought with a coupon, do I get the full price back?
+- **Expected answer:** Refund is based on the discounted amount actually paid; promos aren’t refunded in cash.
+- **Source docs (titles):** Promotions & Coupons; Returns & Refunds
+- **Required keywords:** ["discounted amount","not refunded in cash"]
+- **Forbidden words/phrases:** ["full pre-discount"]
+
+### Q13 — High-value delivery
+- **Type:** multi-doc
+- **User question:** Will I have to sign for expensive items and what if I’m not home?
+- **Expected answer:** Signature may be required; follow carrier notice to reschedule or pick up.
+- **Source docs (titles):** Orders & Tracking; Shipping & Delivery
+- **Required keywords:** ["signature","carrier"]
+- **Forbidden words/phrases:** ["left unattended by default"]
+
+### Q14 — Payment failure during checkout
+- **Type:** multi-doc
+- **User question:** 3-D Secure failed—how do I complete purchase without losing the cart?
+- **Expected answer:** Retry with a different method; the cart persists. Contact your bank if issues continue.
+- **Source docs (titles):** Payments; Cart & Checkout
+- **Required keywords:** ["retry","cart persists","3-D Secure"]
+- **Forbidden words/phrases:** ["cart wiped automatically"]
+
+### Q15 — Backorder ETA
+- **Type:** multi-doc
+- **User question:** A backordered item shows no date. Will you notify me and when will it ship?
+- **Expected answer:** Enable “Notify me.” Backorders ship FIFO as stock arrives; ETAs depend on supplier feeds.
+- **Source docs (titles):** Inventory & Availability; Orders & Tracking
+- **Required keywords:** ["Notify me","order received"]
+- **Forbidden words/phrases:** ["guaranteed date"]
+
+### Q16 — Account deletion & history
+- **Type:** multi-doc
+- **User question:** If I delete my account, will order history be erased?
+- **Expected answer:** Personal data is deleted after legal retention; order/tax records may be retained as required by law.
+- **Source docs (titles):** Account Registration; Security & Privacy; Legal & Compliance
+- **Required keywords:** ["retention","law"]
+- **Forbidden words/phrases:** ["immediate purge of all records"]
+
+### Q17 — Review images policy
+- **Type:** multi-doc
+- **User question:** Can I upload photos in my review and what content is forbidden?
+- **Expected answer:** Yes, but content must follow guidelines; offensive/personal/deceptive content is prohibited.
+- **Source docs (titles):** Reviews & Ratings; Legal & Compliance
+- **Required keywords:** ["content guidelines","prohibited"]
+- **Forbidden words/phrases:** ["any content allowed"]
+
+### Q18 — International duties
+- **Type:** multi-doc
+- **User question:** Do you include customs duties at checkout for international orders?
+- **Expected answer:** Duties may be prepaid at checkout or collected on delivery depending on destination.
+- **Source docs (titles):** Shipping & Delivery; Cart & Checkout
+- **Required keywords:** ["prepaid","collected on delivery"]
+- **Forbidden words/phrases:** ["always included"]
+
+### Q19 — Seller delays & penalties
+- **Type:** multi-doc
+- **User question:** What happens if a seller repeatedly ships late?
+- **Expected answer:** Performance metrics suffer; may lead to warnings, restricted privileges, or suspension.
+- **Source docs (titles):** Seller Policies
+- **Required keywords:** ["performance metrics","suspension"]
+- **Forbidden words/phrases:** ["no consequences"]
+
+### Q20 — Fraud hold
+- **Type:** multi-doc
+- **User question:** My order is on hold for verification—what should I expect?
+- **Expected answer:** Manual review; we may contact you. Shipping resumes after verification.
+- **Source docs (titles):** Fraud & Risk; Orders & Tracking
+- **Required keywords:** ["manual review","contact you"]
+- **Forbidden words/phrases:** ["ship immediately"]
