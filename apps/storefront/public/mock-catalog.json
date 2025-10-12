@@ -1,0 +1,222 @@
+[
+  {
+    "id": "SKU0001",
+    "title": "Product 1",
+    "price": 12.5,
+    "image": "https://picsum.photos/seed/1/640/360",
+    "tags": [
+      "home",
+      "travel"
+    ],
+    "stockQty": 21
+  },
+  {
+    "id": "SKU0002",
+    "title": "Product 2",
+    "price": 16.0,
+    "image": "https://picsum.photos/seed/2/640/360",
+    "tags": [
+      "gaming",
+      "travel"
+    ],
+    "stockQty": 50
+  },
+  {
+    "id": "SKU0003",
+    "title": "Product 3",
+    "price": 19.5,
+    "image": "https://picsum.photos/seed/3/640/360",
+    "tags": [
+      "gaming",
+      "travel"
+    ],
+    "stockQty": 31
+  },
+  {
+    "id": "SKU0004",
+    "title": "Product 4",
+    "price": 23.0,
+    "image": "https://picsum.photos/seed/4/640/360",
+    "tags": [
+      "kitchen",
+      "outdoors"
+    ],
+    "stockQty": 17
+  },
+  {
+    "id": "SKU0005",
+    "title": "Product 5",
+    "price": 26.5,
+    "image": "https://picsum.photos/seed/5/640/360",
+    "tags": [
+      "fitness",
+      "outdoors"
+    ],
+    "stockQty": 35
+  },
+  {
+    "id": "SKU0006",
+    "title": "Product 6",
+    "price": 30.0,
+    "image": "https://picsum.photos/seed/6/640/360",
+    "tags": [
+      "outdoors",
+      "wearable"
+    ],
+    "stockQty": 9
+  },
+  {
+    "id": "SKU0007",
+    "title": "Product 7",
+    "price": 33.5,
+    "image": "https://picsum.photos/seed/7/640/360",
+    "tags": [
+      "travel",
+      "outdoors"
+    ],
+    "stockQty": 25
+  },
+  {
+    "id": "SKU0008",
+    "title": "Product 8",
+    "price": 37.0,
+    "image": "https://picsum.photos/seed/8/640/360",
+    "tags": [
+      "gaming",
+      "audio"
+    ],
+    "stockQty": 50
+  },
+  {
+    "id": "SKU0009",
+    "title": "Product 9",
+    "price": 40.5,
+    "image": "https://picsum.photos/seed/9/640/360",
+    "tags": [
+      "fitness",
+      "home"
+    ],
+    "stockQty": 31
+  },
+  {
+    "id": "SKU0010",
+    "title": "Product 10",
+    "price": 44.0,
+    "image": "https://picsum.photos/seed/10/640/360",
+    "tags": [
+      "fitness",
+      "gaming"
+    ],
+    "stockQty": 15
+  },
+  {
+    "id": "SKU0011",
+    "title": "Product 11",
+    "price": 47.5,
+    "image": "https://picsum.photos/seed/11/640/360",
+    "tags": [
+      "office",
+      "audio"
+    ],
+    "stockQty": 5
+  },
+  {
+    "id": "SKU0012",
+    "title": "Product 12",
+    "price": 51.0,
+    "image": "https://picsum.photos/seed/12/640/360",
+    "tags": [
+      "tech",
+      "kitchen"
+    ],
+    "stockQty": 29
+  },
+  {
+    "id": "SKU0013",
+    "title": "Product 13",
+    "price": 54.5,
+    "image": "https://picsum.photos/seed/13/640/360",
+    "tags": [
+      "home",
+      "office"
+    ],
+    "stockQty": 37
+  },
+  {
+    "id": "SKU0014",
+    "title": "Product 14",
+    "price": 58.0,
+    "image": "https://picsum.photos/seed/14/640/360",
+    "tags": [
+      "tech",
+      "office"
+    ],
+    "stockQty": 36
+  },
+  {
+    "id": "SKU0015",
+    "title": "Product 15",
+    "price": 61.5,
+    "image": "https://picsum.photos/seed/15/640/360",
+    "tags": [
+      "fitness",
+      "audio"
+    ],
+    "stockQty": 40
+  },
+  {
+    "id": "SKU0016",
+    "title": "Product 16",
+    "price": 65.0,
+    "image": "https://picsum.photos/seed/16/640/360",
+    "tags": [
+      "home",
+      "outdoors"
+    ],
+    "stockQty": 19
+  },
+  {
+    "id": "SKU0017",
+    "title": "Product 17",
+    "price": 68.5,
+    "image": "https://picsum.photos/seed/17/640/360",
+    "tags": [
+      "audio",
+      "wearable"
+    ],
+    "stockQty": 40
+  },
+  {
+    "id": "SKU0018",
+    "title": "Product 18",
+    "price": 72.0,
+    "image": "https://picsum.photos/seed/18/640/360",
+    "tags": [
+      "outdoors",
+      "travel"
+    ],
+    "stockQty": 14
+  },
+  {
+    "id": "SKU0019",
+    "title": "Product 19",
+    "price": 75.5,
+    "image": "https://picsum.photos/seed/19/640/360",
+    "tags": [
+      "wearable",
+      "gaming"
+    ],
+    "stockQty": 18
+  },
+  {
+    "id": "SKU0020",
+    "title": "Product 20",
+    "price": 79.0,
+    "image": "https://picsum.photos/seed/20/640/360",
+    "tags": [
+      "office",
+      "audio"
+    ],
+    "stockQty": 47
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "qid": "Q01",
+    "category": "Returns",
+    "question": "What is your return window?",
+    "answer": "We accept returns within 30 days of delivery for unused items in original packaging. [Exceptions: final sale items]."
+  },
+  {
+    "qid": "Q02",
+    "category": "Returns",
+    "question": "How do I start a return?",
+    "answer": "Visit Account \u2192 Orders \u2192 Select order \u2192 Start return. We'll email a prepaid label."
+  },
+  {
+    "qid": "Q03",
+    "category": "Shipping",
+    "question": "Do you ship internationally?",
+    "answer": "Yes, we ship to 40+ countries. Duties/taxes calculated at checkout."
+  },
+  {
+    "qid": "Q04",
+    "category": "Shipping",
+    "question": "How long does shipping take?",
+    "answer": "Domestic 2\u20135 business days; international 5\u201312 business days."
+  },
+  {
+    "qid": "Q05",
+    "category": "Warranty",
+    "question": "Do products have a warranty?",
+    "answer": "Most items include a 1\u2011year limited warranty against manufacturing defects."
+  },
+  {
+    "qid": "Q06",
+    "category": "Payments",
+    "question": "What payment methods are accepted?",
+    "answer": "We accept major credit/debit cards and Apple/Google Pay."
+  },
+  {
+    "qid": "Q07",
+    "category": "Discounts",
+    "question": "Can I combine discount codes?",
+    "answer": "Only one promo code per order unless explicitly stated."
+  },
+  {
+    "qid": "Q08",
+    "category": "Orders",
+    "question": "Can I edit my order?",
+    "answer": "Edits are possible within 30 minutes of placing the order while status is Placed."
+  },
+  {
+    "qid": "Q09",
+    "category": "Orders",
+    "question": "How do I cancel?",
+    "answer": "If the order status is Placed, you can cancel from the order page."
+  },
+  {
+    "qid": "Q10",
+    "category": "Security",
+    "question": "Is my payment secure?",
+    "answer": "Yes. We use PCI\u2011compliant processors and never store full card numbers."
+  },
+  {
+    "qid": "Q11",
+    "category": "Products",
+    "question": "Are items authentic?",
+    "answer": "Yes, all items are sourced directly from authorized manufacturers."
+  },
+  {
+    "qid": "Q12",
+    "category": "Stock",
+    "question": "When will an item be back in stock?",
+    "answer": "Use 'Notify me' on the product page. We also restock popular items weekly."
+  },
+  {
+    "qid": "Q13",
+    "category": "Care",
+    "question": "How do I care for my product?",
+    "answer": "See the Care tab on each product page for washing and storage instructions."
+  },
+  {
+    "qid": "Q14",
+    "category": "Gifts",
+    "question": "Do you offer gift wrapping?",
+    "answer": "Yes\u2014add gift options in cart before checkout."
+  },
+  {
+    "qid": "Q15",
+    "category": "Account",
+    "question": "Do I need an account to order?",
+    "answer": "Guest checkout is available; an account helps track orders and returns."
+  },
+  {
+    "qid": "Q16",
+    "category": "Fees",
+    "question": "Are there hidden fees?",
+    "answer": "No hidden fees. Taxes and shipping are shown before you pay."
+  },
+  {
+    "qid": "Q17",
+    "category": "Support",
+    "question": "How can I contact support?",
+    "answer": "Use the Ask Support panel or email support@example.com."
+  },
+  {
+    "qid": "Q18",
+    "category": "Order Status",
+    "question": "Where is my order?",
+    "answer": "Provide your order ID and we'll fetch the latest status."
+  },
+  {
+    "qid": "Q19",
+    "category": "Privacy",
+    "question": "How do you handle my data?",
+    "answer": "We follow GDPR/CCPA principles and never sell personal data."
+  },
+  {
+    "qid": "Q20",
+    "category": "Rewards",
+    "question": "Do you have a loyalty program?",
+    "answer": "Yes\u2014earn 1 point per $1 spent; redeem at checkout."
+  }
+]

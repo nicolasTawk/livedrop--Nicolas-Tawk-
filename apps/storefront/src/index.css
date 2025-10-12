@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ring: 2px;
+}
+img.lazy {
+  loading: lazy;
+}
