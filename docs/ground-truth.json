@@ -1,0 +1,107 @@
+[
+    {
+        "id": "Policy3.1",
+        "question": "What is your return policy?",
+        "answer": "Items can be returned within 30 days of purchase with original receipt. All items must be in original condition with tags attached. Refunds are processed within 5-7 business days to the original payment method.",
+        "category": "returns",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Policy3.2",
+        "question": "How do I return an item?",
+        "answer": "To return an item, contact our customer service team to receive a return authorization number. Package the item securely with the original receipt and return label. We recommend using a trackable shipping method.",
+        "category": "returns",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Policy3.3",
+        "question": "What items cannot be returned?",
+        "answer": "Personalized items, perishable goods, intimate apparel, and items damaged by misuse cannot be returned. Electronics must be returned within 14 days and in original packaging.",
+        "category": "returns",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Shipping2.1",
+        "question": "What are your shipping options?",
+        "answer": "We offer Standard (5-7 business days, $5.99), Express (2-3 business days, $12.99), and Overnight (next business day, $24.99) shipping. Free shipping on orders over $50.",
+        "category": "shipping",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Shipping2.2",
+        "question": "How long does shipping take?",
+        "answer": "Standard shipping takes 5-7 business days, Express takes 2-3 business days, and Overnight arrives the next business day. Processing time is 1-2 business days for all orders.",
+        "category": "shipping",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Shipping2.3",
+        "question": "Do you ship internationally?",
+        "answer": "Yes, we ship to most countries worldwide. International shipping takes 7-14 business days and costs $19.99. Some restrictions may apply to certain products.",
+        "category": "shipping",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Warranty4.1",
+        "question": "What is your warranty policy?",
+        "answer": "All products come with a 1-year manufacturer warranty against defects. Electronics have a 2-year warranty. Warranty covers manufacturing defects but not damage from misuse or accidents.",
+        "category": "warranty",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Warranty4.2",
+        "question": "How do I claim warranty service?",
+        "answer": "Contact our customer service with your order number and description of the issue. We'll provide a return authorization and replacement or refund within 5-7 business days of receiving the defective item.",
+        "category": "warranty",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Privacy5.1",
+        "question": "How do you protect my personal information?",
+        "answer": "We use industry-standard encryption for all data transmission and storage. Your personal information is never shared with third parties except for order fulfillment. We comply with GDPR and CCPA regulations.",
+        "category": "privacy",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Privacy5.2",
+        "question": "Can I delete my account and data?",
+        "answer": "Yes, you can request account deletion by contacting customer service. We'll delete your personal data within 30 days, though some information may be retained for legal compliance.",
+        "category": "privacy",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Payment6.1",
+        "question": "What payment methods do you accept?",
+        "answer": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and bank transfers. All payments are processed securely through encrypted gateways.",
+        "category": "payment",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "Payment6.2",
+        "question": "Is my payment information secure?",
+        "answer": "Yes, we use PCI DSS compliant payment processing. Your payment information is encrypted and never stored on our servers. We partner with trusted payment processors for maximum security.",
+        "category": "payment",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "General7.1",
+        "question": "What are your business hours?",
+        "answer": "Our customer service is available Monday-Friday 9 AM - 6 PM EST and Saturday 10 AM - 4 PM EST. Online orders can be placed 24/7. We're closed on Sundays and major holidays.",
+        "category": "general",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "General7.2",
+        "question": "How can I contact customer service?",
+        "answer": "You can reach us by phone at 1-800-STORE-HELP, email at support@storefront.com, or through our live chat feature. Average response time is under 2 hours during business hours.",
+        "category": "general",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    },
+    {
+        "id": "General7.3",
+        "question": "Do you offer customer loyalty programs?",
+        "answer": "Yes! Join our loyalty program to earn points on every purchase. Get 1 point per dollar spent, plus bonus points for reviews and referrals. Points can be redeemed for discounts.",
+        "category": "general",
+        "lastUpdated": "2025-10-01T00:00:00Z"
+    }
+]

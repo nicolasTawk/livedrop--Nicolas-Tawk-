@@ -1,41 +1,86 @@
-import catalog from '../../public/mock-catalog.json'
+// Real API functions
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000';
 
-type Product = { id: string; title: string; price: number; image: string; tags: string[]; stockQty: number; description?: string }
-type OrderStatus = 'Placed' | 'Packed' | 'Shipped' | 'Delivered'
-
-const statusById: Record<string, {status: OrderStatus, carrier?: string, eta?: string}> = {}
-
-export function listProducts(): Product[] {
-  return (catalog as Product[])
+type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  tags: string[];
+  stock: number;
+  description?: string;
+  category?: string;
 }
 
-export function getProduct(id: string): Product | undefined {
-  return (catalog as Product[]).find(p=>p.id===id)
+type OrderStatus = 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED'
+
+export async function listProducts(search = '', tag = '', sort = 'name', page = 1, limit = 20): Promise<{ products: Product[], pagination: any }> {
+  const params = new URLSearchParams({
+    search,
+    tag,
+    sort,
+    page: page.toString(),
+    limit: limit.toString()
+  });
+
+  const response = await fetch(`${API_BASE_URL}/api/products?${params}`);
+  if (!response.ok) throw new Error('Failed to fetch products');
+  return response.json();
 }
 
-export function placeOrder(cart: {id:string; qty:number}[]) {
-  const orderId = Math.random().toString(36).slice(2, 12).toUpperCase()
-  // initialize status
-  statusById[orderId] = { status: 'Placed' }
-  return { orderId }
+export async function getProduct(id: string): Promise<Product> {
+  const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
+  if (!response.ok) throw new Error('Product not found');
+  return response.json();
 }
 
-export function getOrderStatus(id: string) {
-  // simple mock progression based on hash of id
-  if (!statusById[id]) {
-    const phases: OrderStatus[] = ['Placed','Packed','Shipped','Delivered']
-    const idx = Math.abs([...id].reduce((a,c)=>a + c.charCodeAt(0), 0)) % phases.length
-    const status = phases[idx]
-    statusById[id] = { status }
+export async function getCustomerByEmail(email: string): Promise<any> {
+  const response = await fetch(`${API_BASE_URL}/api/customers?email=${encodeURIComponent(email)}`);
+  if (!response.ok) throw new Error('Customer not found');
+  return response.json();
+}
+
+export async function createCustomer(customerData: any): Promise<any> {
+  const response = await fetch(`${API_BASE_URL}/api/customers`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(customerData)
+  });
+  if (!response.ok) throw new Error('Failed to create customer');
+  return response.json();
+}
+
+export async function placeOrder(order: { customerId: string, items: any[] }): Promise<{ orderId: string }> {
+  const response = await fetch(`${API_BASE_URL}/api/orders`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(order)
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to place order');
   }
-  const entry = statusById[id]
-  if (entry.status === 'Shipped' || entry.status === 'Delivered') {
-    entry.carrier = 'FastShip'
-    if (!entry.eta) {
-      const days = entry.status === 'Shipped' ? 3 : 0
-      const eta = new Date(Date.now()+days*24*3600*1000).toISOString().slice(0,10)
-      entry.eta = eta
-    }
-  }
-  return { orderId: id, ...entry }
+
+  const result = await response.json();
+  return { orderId: result._id };
+}
+
+export async function getOrderStatus(orderId: string): Promise<{ orderId: string, status: OrderStatus, carrier?: string, eta?: string }> {
+  const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}`);
+  if (!response.ok) throw new Error('Order not found');
+
+  const order = await response.json();
+  return {
+    orderId: order._id,
+    status: order.status,
+    carrier: order.carrier,
+    eta: order.estimatedDelivery
+  };
+}
+
+export async function getCustomerOrders(customerId: string): Promise<any[]> {
+  const response = await fetch(`${API_BASE_URL}/api/orders?customerId=${customerId}`);
+  if (!response.ok) throw new Error('Failed to fetch orders');
+  return response.json();
 }

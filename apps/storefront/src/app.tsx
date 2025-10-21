@@ -6,12 +6,14 @@ import Cart from './pages/cart'
 import Checkout from './pages/checkout'
 import OrderStatus from './pages/order-status'
 import CartDrawer from './components/organisms/cart-drawer'
-import SupportPanel from './components/organisms/support-panel'
+import SupportAssistant from './components/SupportAssistant'
+import UserLogin from './components/UserLogin'
 import AnimatedCartButton from './components/atoms/animated-cart-button'
 
 export default function App() {
   const [cartOpen, setCartOpen] = useState(false)
   const [supportOpen, setSupportOpen] = useState(false)
+  const [currentCustomer, setCurrentCustomer] = useState<any>(null)
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,28 +24,37 @@ export default function App() {
           <div className="ml-auto flex items-center gap-2">
             <button aria-label="Open Support" onClick={() => setSupportOpen(true)} className="px-3 py-1.5 rounded-lg bg-gray-900 text-white hover:bg-black">Ask Support</button>
             <AnimatedCartButton
-              aria-label="Open Cart"
               onClick={() => setCartOpen(true)}
-              className="px-3 py-1.5 rounded-lg border hover:bg-gray-50 transition-colors duration-200"
-            >
-              Cart
-            </AnimatedCartButton>
+              className="p-2 rounded-lg border hover:bg-gray-50 transition-colors duration-200"
+            />
           </div>
         </div>
       </header>
 
       <main className="flex-1">
+        {/* User Login */}
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <UserLogin
+            onLogin={setCurrentCustomer}
+            currentCustomer={currentCustomer}
+          />
+        </div>
+
         <Routes>
           <Route path="/" element={<Catalog />} />
           <Route path="/p/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout customer={currentCustomer} />} />
           <Route path="/order/:id" element={<OrderStatus />} />
         </Routes>
       </main>
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
-      <SupportPanel open={supportOpen} onClose={() => setSupportOpen(false)} />
+      <SupportAssistant
+        open={supportOpen}
+        onClose={() => setSupportOpen(false)}
+        customerId={currentCustomer?._id}
+      />
     </div>
   )
 }
