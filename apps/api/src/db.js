@@ -27,6 +27,9 @@ const productSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+// Text index to enable relevance-based product search across key fields
+productSchema.index({ name: 'text', description: 'text', tags: 'text', category: 'text' });
+
 // Order Item Schema
 const orderItemSchema = new mongoose.Schema({
     productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },

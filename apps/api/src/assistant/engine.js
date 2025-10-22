@@ -345,13 +345,13 @@ Sources: <Title A>; <Title B>`;
         }
 
         try {
-            const response = await axios.post(`${this.llmBaseUrl}/ping`, {
-                prompt
-            }, {
-                timeout: 10000
-            });
-
-            return response.data.output || 'I apologize, but I had trouble processing your request.';
+            // Prefer /generate per assignment; fall back to /ping
+            try {
+                const g = await axios.post(`${this.llmBaseUrl}/generate`, { prompt, max_tokens: 400 }, { timeout: 10000 });
+                if (g?.data?.text) return g.data.text;
+            } catch { }
+            const p = await axios.post(`${this.llmBaseUrl}/ping`, { prompt }, { timeout: 10000 });
+            return p.data.output || 'I apologize, but I had trouble processing your request.';
         } catch (error) {
             console.error('LLM call failed:', error);
             throw error;

@@ -19,13 +19,21 @@ class IntentClassifier {
 
     loadConfig() {
         try {
-            const configPath = path.join(__dirname, '../../docs/prompts.yaml');
-            if (fs.existsSync(configPath)) {
-                const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
-                this.config = config;
-            } else {
-                this.config = this.getDefaultConfig();
+            // Try repo-level docs path first
+            const candidates = [
+                path.join(process.cwd(), '../../docs/prompts.yaml'),
+                path.join(process.cwd(), 'docs/prompts.yaml'),
+                path.join(__dirname, '../../../docs/prompts.yaml'),
+                path.join(__dirname, '../../docs/prompts.yaml')
+            ];
+            for (const p of candidates) {
+                if (fs.existsSync(p)) {
+                    const config = yaml.load(fs.readFileSync(p, 'utf8'));
+                    this.config = config;
+                    return;
+                }
             }
+            this.config = this.getDefaultConfig();
         } catch (error) {
             console.error('Error loading assistant config:', error);
             this.config = this.getDefaultConfig();
@@ -96,7 +104,7 @@ class IntentClassifier {
         }
 
         // Heuristic: short noun-like queries (e.g., "backpack", "earbuds", "show me backpacks")
-        // are likely product searches even if no keyword matched
+        // are likely product searches even if no keyword matched.
         const tokens = input.split(/[^a-z0-9]+/).filter(Boolean);
         const productPhrases = ['show me', 'looking for', 'need', 'want'];
         const looksLikeProductQuery =

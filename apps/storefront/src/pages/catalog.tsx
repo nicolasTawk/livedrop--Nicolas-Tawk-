@@ -15,6 +15,7 @@ type Product = {
 
 export default function CatalogPage() {
   const [q, setQ] = useState('')
+  const typingRef = useRef<number | null>(null)
   const [tag, setTag] = useState('')
   const [sort, setSort] = useState<'name' | 'price_asc' | 'price_desc'>('name')
   const [products, setProducts] = useState<Product[]>([])
@@ -25,13 +26,28 @@ export default function CatalogPage() {
   const [error, setError] = useState('')
 
   // Reset the list whenever filters change so we fetch from page 1 again
+  // Debounce query changes to avoid over-fetching while typing.
+  // This keeps the UI responsive and reduces API load when users type quickly.
   useEffect(() => {
-    // reset when filters change
+    if (typingRef.current) window.clearTimeout(typingRef.current)
+    typingRef.current = window.setTimeout(() => {
+      setProducts([])
+      setPage(1)
+      setHasMore(true)
+      loadProducts(1, true)
+    }, 300)
+    return () => {
+      if (typingRef.current) window.clearTimeout(typingRef.current)
+    }
+  }, [q])
+
+  // Immediately refetch on filter or sort changes (no debounce needed)
+  useEffect(() => {
     setProducts([])
     setPage(1)
     setHasMore(true)
     loadProducts(1, true)
-  }, [q, tag, sort])
+  }, [tag, sort])
 
   // Paged loader; when reset is true we replace the list, otherwise we append
   const loadProducts = async (nextPage = page, reset = false) => {
@@ -50,7 +66,8 @@ export default function CatalogPage() {
     }
   }
 
-  // Infinite scroll: when the sentinel comes into view, fetch the next page
+  // Infinite scroll: when the sentinel comes into view, fetch the next page.
+  // IntersectionObserver is efficient and avoids scroll listeners.
   useEffect(() => {
     if (!hasMore || loading) return
     const el = sentinelRef.current
@@ -102,7 +119,7 @@ export default function CatalogPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      {/* Controls: maximize search width; make controls compact on mobile */}
+      {/* Controls: maximize search width; make controls compact on mobile. */}
       <div className="flex flex-col md:flex-row gap-3 md:items-end mb-4">
         <label className="text-sm md:flex-1">Search
           <input

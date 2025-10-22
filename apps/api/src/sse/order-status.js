@@ -19,7 +19,7 @@ function setupOrderStatusStream(req, res, orderId) {
     // Store connection
     activeConnections.set(orderId, res);
 
-    // Send initial status
+    // Send initial status immediately so the UI has something to render
     sendStatusUpdate(res, orderId);
 
     // Auto-progression logic
@@ -74,7 +74,8 @@ function startAutoProgression(orderId) {
             let carrier = order.carrier;
             let estimatedDelivery = order.estimatedDelivery;
 
-            // Auto-progress status
+            // Auto-progress status on a simple timeline. This is a demo-only
+            // simulation so that every connection shows movement.
             switch (order.status) {
                 case 'PENDING':
                     newStatus = 'PROCESSING';

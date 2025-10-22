@@ -5,6 +5,7 @@ import Product from '../pages/product'
 import Cart from '../pages/cart'
 import Checkout from '../pages/checkout'
 import OrderStatus from '../pages/order-status'
+import AdminDashboard from '../pages/AdminDashboard'
 
 export default createBrowserRouter([
   { path: '/', element: <Catalog /> },
@@ -12,4 +13,5 @@ export default createBrowserRouter([
   { path: '/cart', element: <Cart /> },
   { path: '/checkout', element: <Checkout /> },
   { path: '/order/:id', element: <OrderStatus /> }
+  , { path: '/admin', element: <AdminDashboard /> }
 ])

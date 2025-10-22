@@ -17,10 +17,8 @@ router.get('/', async (req, res) => {
         let query = {};
 
         if (search) {
-            query.$or = [
-                { name: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } }
-            ];
+            // Use text search when available for better relevance; falls back to normal sort below
+            query.$text = { $search: search };
         }
 
         if (tag) {
@@ -49,12 +47,23 @@ router.get('/', async (req, res) => {
 
         // Only fetch fields needed by the storefront grid, and use lean() to
         // return plain JS objects (lower memory and CPU vs hydrated Mongoose docs)
-        const products = await Product.find(query)
-            .sort(sortObj)
-            .skip(skip)
-            .limit(limitNum)
+        // Build base query; select only fields the UI needs and lean() for speed
+        const findQuery = Product.find(query)
             .select('name description price category tags imageUrl stock createdAt')
             .lean();
+
+        // If text search is used, sort by textScore first
+        if (query.$text) {
+            // When $text is used, include the score and sort by it first
+            findQuery.select({ score: { $meta: 'textScore' } });
+            findQuery.sort({ score: { $meta: 'textScore' } });
+        } else {
+            findQuery.sort(sortObj);
+        }
+
+        const products = await findQuery
+            .skip(skip)
+            .limit(limitNum);
 
         const total = await Product.countDocuments(query);
 

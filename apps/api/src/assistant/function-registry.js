@@ -138,18 +138,39 @@ class FunctionRegistry {
         console.log('Search products called with:', { query, limit, parameters });
 
         try {
-            // Broaden search across key fields with case-insensitive partial matches
-            const products = await Product.find({
-                $or: [
-                    { name: { $regex: query, $options: 'i' } },
-                    { description: { $regex: query, $options: 'i' } },
-                    { category: { $regex: query, $options: 'i' } },
-                    { tags: { $elemMatch: { $regex: query, $options: 'i' } } }
-                ]
-            })
+            // Expand with simple synonyms to improve recall.
+            // This is intentionally lightweight to keep latency low and avoid external dependencies.
+            const synonyms = {
+                backpack: ['bag', 'rucksack', 'daypack'],
+                earbuds: ['earphones', 'headphones'],
+                jacket: ['coat', 'outerwear']
+            };
+            const terms = [query];
+            for (const [k, vals] of Object.entries(synonyms)) {
+                if (query.toLowerCase().includes(k)) terms.push(...vals);
+            }
+            const textQuery = terms.join(' ');
+
+            // Prefer text index if present; fall back to regex when no results.
+            let products = await Product.find({ $text: { $search: textQuery } })
+                .select({ name: 1, description: 1, price: 1, imageUrl: 1, stock: 1, score: { $meta: 'textScore' } })
+                .sort({ score: { $meta: 'textScore' } })
                 .limit(limit)
-                .select('name description price imageUrl stock')
                 .lean();
+
+            if (!products.length) {
+                products = await Product.find({
+                    $or: [
+                        { name: { $regex: query, $options: 'i' } },
+                        { description: { $regex: query, $options: 'i' } },
+                        { category: { $regex: query, $options: 'i' } },
+                        { tags: { $elemMatch: { $regex: query, $options: 'i' } } }
+                    ]
+                })
+                    .select('name description price imageUrl stock')
+                    .limit(limit)
+                    .lean();
+            }
 
             return {
                 success: true,
