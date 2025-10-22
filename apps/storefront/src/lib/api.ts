@@ -1,5 +1,6 @@
 // Real API functions
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000';
+export const API_BASE = API_BASE_URL;
 
 type Product = {
   _id: string;
@@ -83,4 +84,15 @@ export async function getCustomerOrders(customerId: string): Promise<any[]> {
   const response = await fetch(`${API_BASE_URL}/api/orders?customerId=${customerId}`);
   if (!response.ok) throw new Error('Failed to fetch orders');
   return response.json();
+}
+
+// Assistant
+export async function askAssistant(message: string, context: any = {}): Promise<{ text: string; intent?: string; citations?: string[] }> {
+  const response = await fetch(`${API_BASE_URL}/api/assistant/query`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, context })
+  })
+  if (!response.ok) throw new Error('Assistant request failed')
+  return response.json()
 }

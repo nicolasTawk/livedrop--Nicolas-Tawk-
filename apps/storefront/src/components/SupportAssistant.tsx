@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { askAssistant } from '../lib/api';
 
 interface Message {
     id: string;
@@ -43,18 +44,7 @@ export default function SupportAssistant({ open, onClose, customerId }: SupportA
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:3000/api/assistant/query', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: input,
-                    context: { customerId }
-                })
-            });
-
-            if (!response.ok) throw new Error('Failed to get response');
-
-            const result = await response.json();
+            const result = await askAssistant(input, { customerId });
 
             const assistantMessage: Message = {
                 id: (Date.now() + 1).toString(),

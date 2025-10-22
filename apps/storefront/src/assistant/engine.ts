@@ -42,7 +42,7 @@ export async function askSupport(input: string) {
   let status: any = null
   if (ids.length) {
     // only show last 4 chars for display
-    status = getOrderStatus(ids[0])
+    status = await getOrderStatus(ids[0])
   }
   const ranked = (GT as QA[]).map(qa => ({ qa, s: score(input, qa) })).sort((a, b) => b.s - a.s)
   const top = ranked[0]

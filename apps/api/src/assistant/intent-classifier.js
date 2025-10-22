@@ -112,7 +112,8 @@ class IntentClassifier {
         const orderIdPattern = /\b[A-Za-z0-9]{6,}\b/;
         const orderKeywords = ['order', 'tracking', 'status', 'where is my order', 'my order'];
 
-        return orderIdPattern.test(input) ||
+        // Only match if there's an actual order ID pattern OR specific order-related phrases
+        return (orderIdPattern.test(input) && input.includes('order')) ||
             orderKeywords.some(keyword => input.includes(keyword));
     }
 

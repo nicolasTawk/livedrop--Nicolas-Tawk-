@@ -113,6 +113,7 @@ const customers = [
         }
     },
     {
+        id: 1,
         name: "Amanda Rodriguez",
         email: "amanda.rodriguez@email.com",
         phone: "+1-555-0132",

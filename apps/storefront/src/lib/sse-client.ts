@@ -7,6 +7,8 @@ export interface OrderStatusUpdate {
     timestamp: string;
 }
 
+import { API_BASE as API_BASE_URL } from './api'
+
 export class SSEOrderTracker {
     private eventSource: EventSource | null = null;
     private reconnectAttempts = 0;
@@ -20,7 +22,7 @@ export class SSEOrderTracker {
         private onComplete?: () => void
     ) { }
 
-    connect(apiBaseUrl: string = 'http://localhost:3000') {
+    connect(apiBaseUrl: string = API_BASE_URL) {
         if (this.eventSource) {
             this.disconnect();
         }

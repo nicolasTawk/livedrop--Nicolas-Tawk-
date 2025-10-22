@@ -11,25 +11,43 @@ class AssistantEngine {
         this.functionRegistry = new FunctionRegistry();
         this.knowledgeBase = this.loadKnowledgeBase();
         this.llmBaseUrl = process.env.LLM_BASE_URL;
+
+        // Normalize LLM base URL for robustness
+        if (this.llmBaseUrl) {
+            let u = this.llmBaseUrl.trim();
+            if (!/^https?:\/\//i.test(u)) {
+                u = `https://${u}`;
+            }
+            // remove trailing slashes
+            u = u.replace(/\/+$/, '');
+            this.llmBaseUrl = u;
+        }
     }
 
     loadKnowledgeBase() {
         try {
-            // Try the new ground-truth.json first
-            const kbPath = path.join(__dirname, '../../docs/ground-truth.json');
+            // Try the new ground-truth.json first - use absolute path
+            const kbPath = path.join(process.cwd(), '../../docs/ground-truth.json');
+            console.log('🔍 Looking for knowledge base at:', kbPath);
             if (fs.existsSync(kbPath)) {
-                return JSON.parse(fs.readFileSync(kbPath, 'utf8'));
+                const data = JSON.parse(fs.readFileSync(kbPath, 'utf8'));
+                console.log('✅ Loaded knowledge base with', data.length, 'policies');
+                return data;
             }
 
             // Fallback to existing knowledge-base.md
             const mdPath = path.join(__dirname, '../../docs/prompting/knowledge-base.md');
+            console.log('🔍 Looking for markdown knowledge base at:', mdPath);
             if (fs.existsSync(mdPath)) {
                 const content = fs.readFileSync(mdPath, 'utf8');
-                return this.parseMarkdownKnowledgeBase(content);
+                const data = this.parseMarkdownKnowledgeBase(content);
+                console.log('✅ Loaded markdown knowledge base with', data.length, 'policies');
+                return data;
             }
         } catch (error) {
-            console.error('Error loading knowledge base:', error);
+            console.error('❌ Error loading knowledge base:', error);
         }
+        console.log('⚠️ No knowledge base found, using empty array');
         return [];
     }
 
@@ -192,10 +210,12 @@ class AssistantEngine {
 
     async handleProductSearch(userInput) {
         try {
+            console.log('🔍 Product search for:', userInput);
             const result = await this.functionRegistry.execute('searchProducts', {
                 query: userInput,
                 limit: 3
             });
+            console.log('🔍 Search result:', result);
 
             if (!result.success || result.data.length === 0) {
                 return "I couldn't find any products matching your search. Could you try different keywords or browse our catalog?";
@@ -203,6 +223,7 @@ class AssistantEngine {
 
             return this.formatProductSearch(result.data);
         } catch (error) {
+            console.error('🔍 Product search error:', error);
             return "I'm having trouble searching our products right now. Please try again in a moment.";
         }
     }
@@ -240,6 +261,9 @@ class AssistantEngine {
 
     findRelevantPolicies(userInput) {
         const input = userInput.toLowerCase();
+        console.log('🔍 Finding policies for:', input);
+        console.log('📚 Knowledge base size:', this.knowledgeBase.length);
+
         const categoryKeywords = {
             'returns': ['return', 'refund', 'exchange', 'money back'],
             'shipping': ['shipping', 'delivery', 'ship', 'transit', 'carrier'],
@@ -252,13 +276,17 @@ class AssistantEngine {
         for (const [category, keywords] of Object.entries(categoryKeywords)) {
             if (keywords.some(kw => input.includes(kw))) {
                 matchedCategory = category;
+                console.log('✅ Matched category:', category);
                 break;
             }
         }
 
-        return matchedCategory
+        const results = matchedCategory
             ? this.knowledgeBase.filter(p => p.category === matchedCategory)
             : this.knowledgeBase.slice(0, 3); // Return first 3 if no category match
+
+        console.log('📋 Found policies:', results.length);
+        return results;
     }
 
     extractOrderId(input) {
@@ -307,14 +335,13 @@ Sources: <Title A>; <Title B>`;
         }
 
         try {
-            const response = await axios.post(`${this.llmBaseUrl}/generate`, {
-                prompt,
-                max_tokens: 500
+            const response = await axios.post(`${this.llmBaseUrl}/ping`, {
+                prompt
             }, {
                 timeout: 10000
             });
 
-            return response.data.text || 'I apologize, but I had trouble processing your request.';
+            return response.data.output || 'I apologize, but I had trouble processing your request.';
         } catch (error) {
             console.error('LLM call failed:', error);
             throw error;

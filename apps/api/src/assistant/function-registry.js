@@ -131,13 +131,16 @@ class FunctionRegistry {
     async searchProducts(parameters) {
         const { query, limit = 5 } = parameters;
 
+        if (!query || typeof query !== 'string' || !query.trim()) {
+            return { success: true, data: [] };
+        }
+
+        console.log('Search products called with:', { query, limit, parameters });
+
         try {
+            // Simple search without regex
             const products = await Product.find({
-                $or: [
-                    { name: { $regex: query, $options: 'i' } },
-                    { description: { $regex: query, $options: 'i' } },
-                    { tags: { $in: [new RegExp(query, 'i')] } }
-                ]
+                name: { $regex: query, $options: 'i' }
             })
                 .limit(limit)
                 .select('name description price imageUrl stock');
@@ -147,9 +150,10 @@ class FunctionRegistry {
                 data: products
             };
         } catch (error) {
+            console.error('Search products error:', error);
             return {
                 success: false,
-                error: 'Failed to search products',
+                error: `Failed to search products: ${error.message}`,
                 data: []
             };
         }

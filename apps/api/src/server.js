@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
@@ -12,11 +13,16 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
+app.use(morgan('dev'));
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/storefront', {
+// Database connection with better error handling
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/storefront';
+mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+}).catch(err => {
+    console.log('❌ MongoDB connection error:', err.message);
+    console.log('⚠️ Server will continue without database connection');
 });
 
 mongoose.connection.on('connected', () => {
