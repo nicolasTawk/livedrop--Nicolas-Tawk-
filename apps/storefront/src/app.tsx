@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import Catalog from './pages/catalog'
 import Product from './pages/product'
 import Cart from './pages/cart'
 import Checkout from './pages/checkout'
 import OrderStatus from './pages/order-status'
+import AdminDashboard from './pages/AdminDashboard'
 import CartDrawer from './components/organisms/cart-drawer'
 import SupportAssistant from './components/SupportAssistant'
 import UserLogin from './components/UserLogin'
@@ -22,6 +23,7 @@ export default function App() {
           <img src="/logo.svg" alt="Logo" width={28} height={28} />
           <h1 className="font-semibold">Storefront</h1>
           <div className="ml-auto flex items-center gap-2">
+            <Link to="/admin" className="px-3 py-1.5 rounded-lg border hover:bg-gray-50">Admin</Link>
             <button aria-label="Open Support" onClick={() => setSupportOpen(true)} className="px-3 py-1.5 rounded-lg bg-gray-900 text-white hover:bg-black">Ask Support</button>
             <AnimatedCartButton
               onClick={() => setCartOpen(true)}
@@ -46,6 +48,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout customer={currentCustomer} />} />
           <Route path="/order/:id" element={<OrderStatus />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>
 
