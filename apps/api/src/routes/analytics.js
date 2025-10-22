@@ -90,7 +90,7 @@ router.get('/dashboard-metrics', async (req, res) => {
         const recentOrders = await Order.countDocuments({
             createdAt: { $gte: sevenDaysAgo }
         });
-
+        //
         const metrics = {
             totalRevenue: totalRevenueResult[0]?.totalRevenue || 0,
             totalOrders: totalRevenueResult[0]?.totalOrders || 0,
