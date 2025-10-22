@@ -47,6 +47,8 @@ router.get('/', async (req, res) => {
         const skip = (parseInt(page) - 1) * parseInt(limit);
         const limitNum = parseInt(limit);
 
+        // Only fetch fields needed by the storefront grid, and use lean() to
+        // return plain JS objects (lower memory and CPU vs hydrated Mongoose docs)
         const products = await Product.find(query)
             .sort(sortObj)
             .skip(skip)

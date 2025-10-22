@@ -135,6 +135,16 @@ class AssistantEngine {
                     break;
 
                 default:
+                    // If unclear, try a lightweight product search as a helpful guess
+                    try {
+                        const tentative = await this.functionRegistry.execute('searchProducts', { query: userInput, limit: 3 });
+                        if (tentative?.success && tentative.data?.length) {
+                            response = this.formatProductSearch(tentative.data);
+                            functionsCalled = ['searchProducts'];
+                            break;
+                        }
+                    } catch { }
+
                     response = await this.handleDefault(userInput);
             }
 

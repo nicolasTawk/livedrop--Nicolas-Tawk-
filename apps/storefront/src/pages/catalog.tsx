@@ -24,6 +24,7 @@ export default function CatalogPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // Reset the list whenever filters change so we fetch from page 1 again
   useEffect(() => {
     // reset when filters change
     setProducts([])
@@ -32,6 +33,7 @@ export default function CatalogPage() {
     loadProducts(1, true)
   }, [q, tag, sort])
 
+  // Paged loader; when reset is true we replace the list, otherwise we append
   const loadProducts = async (nextPage = page, reset = false) => {
     try {
       setLoading(true)
@@ -48,7 +50,7 @@ export default function CatalogPage() {
     }
   }
 
-  // Infinite scroll: observe bottom sentinel
+  // Infinite scroll: when the sentinel comes into view, fetch the next page
   useEffect(() => {
     if (!hasMore || loading) return
     const el = sentinelRef.current
@@ -100,23 +102,44 @@ export default function CatalogPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      <div className="flex gap-2 items-end mb-4">
-        <label className="flex-1 text-sm">Search
-          <input aria-label="Search" className="mt-1 w-full border rounded-lg px-3 py-2" value={q} onChange={e => setQ(e.target.value)} placeholder="Search products" />
+      {/* Controls: on mobile prioritize the search width and tuck filters below */}
+      <div className="flex flex-col md:flex-row gap-3 md:items-end mb-4">
+        <label className="text-sm md:flex-1">Search
+          <input
+            aria-label="Search"
+            className="mt-1 w-full border rounded-lg px-3 py-2"
+            value={q}
+            onChange={e => setQ(e.target.value)}
+            placeholder="Search products"
+          />
         </label>
-        <label className="text-sm">Tag
-          <select aria-label="Filter by tag" className="mt-1 border rounded-lg px-3 py-2" value={tag} onChange={e => setTag(e.target.value)}>
-            <option value="">All</option>
-            {allTags.map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
-        </label>
-        <label className="text-sm">Sort
-          <select aria-label="Sort by price" className="mt-1 border rounded-lg px-3 py-2" value={sort} onChange={e => setSort(e.target.value as any)}>
-            <option value="name">Name</option>
-            <option value="price_asc">Price ↑</option>
-            <option value="price_desc">Price ↓</option>
-          </select>
-        </label>
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-2 md:w-auto">
+          <label className="text-sm">
+            Tag
+            <select
+              aria-label="Filter by tag"
+              className="mt-1 border rounded-lg px-3 py-2"
+              value={tag}
+              onChange={e => setTag(e.target.value)}
+            >
+              <option value="">All</option>
+              {allTags.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </label>
+          <label className="text-sm">
+            Sort
+            <select
+              aria-label="Sort by price"
+              className="mt-1 border rounded-lg px-3 py-2"
+              value={sort}
+              onChange={e => setSort(e.target.value as any)}
+            >
+              <option value="name">Name</option>
+              <option value="price_asc">Price ↑</option>
+              <option value="price_desc">Price ↓</option>
+            </select>
+          </label>
+        </div>
       </div>
       <ProductGrid products={filtered.map(p => ({
         id: p._id,

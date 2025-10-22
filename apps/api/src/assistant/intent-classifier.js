@@ -49,6 +49,7 @@ class IntentClassifier {
                     behavior: 'Check order status and provide tracking information'
                 },
                 product_search: {
+                    // broaden triggers so casual queries like "backpack" or "earbuds" hit product search
                     keywords: ['product', 'search', 'find', 'looking for', 'available', 'in stock'],
                     behavior: 'Search products and provide recommendations'
                 },
