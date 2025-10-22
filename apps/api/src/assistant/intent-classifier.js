@@ -95,7 +95,19 @@ class IntentClassifier {
             }
         }
 
-        // Default to chitchat if no clear intent
+        // Heuristic: short noun-like queries (e.g., "backpack", "earbuds", "show me backpacks")
+        // are likely product searches even if no keyword matched
+        const tokens = input.split(/[^a-z0-9]+/).filter(Boolean);
+        const productPhrases = ['show me', 'looking for', 'need', 'want'];
+        const looksLikeProductQuery =
+            productPhrases.some(p => input.includes(p)) ||
+            (tokens.length >= 1 && tokens.length <= 4 && tokens.every(t => t.length >= 3));
+
+        if (looksLikeProductQuery) {
+            return 'product_search';
+        }
+
+        // Default to chitchat if still no clear intent
         return 'chitchat';
     }
 

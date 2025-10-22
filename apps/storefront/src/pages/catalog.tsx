@@ -102,12 +102,12 @@ export default function CatalogPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      {/* Controls: on mobile prioritize the search width and tuck filters below */}
+      {/* Controls: maximize search width; make controls compact on mobile */}
       <div className="flex flex-col md:flex-row gap-3 md:items-end mb-4">
         <label className="text-sm md:flex-1">Search
           <input
             aria-label="Search"
-            className="mt-1 w-full border rounded-lg px-3 py-2"
+            className="mt-1 w-full border rounded-lg px-3 py-3 md:py-2 text-base md:text-sm"
             value={q}
             onChange={e => setQ(e.target.value)}
             placeholder="Search products"
@@ -118,7 +118,7 @@ export default function CatalogPage() {
             Tag
             <select
               aria-label="Filter by tag"
-              className="mt-1 border rounded-lg px-3 py-2"
+              className="mt-1 border rounded-lg px-2 py-2 text-sm"
               value={tag}
               onChange={e => setTag(e.target.value)}
             >
@@ -130,7 +130,7 @@ export default function CatalogPage() {
             Sort
             <select
               aria-label="Sort by price"
-              className="mt-1 border rounded-lg px-3 py-2"
+              className="mt-1 border rounded-lg px-2 py-2 text-sm"
               value={sort}
               onChange={e => setSort(e.target.value as any)}
             >

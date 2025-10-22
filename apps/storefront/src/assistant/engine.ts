@@ -3,11 +3,11 @@ import { getOrderStatus } from '../lib/api'
 
 type QA = { qid: string; category: string; question: string; answer: string }
 
-const ORDER_RE = /[A-Z0-9]{10,}/g
+const ORDER_RE = /[A-Za-z0-9]{6,}/g
 
+// Do not mask order IDs to show full value as requested
 function maskId(id: string) {
-  if (id.length <= 4) return id
-  return '•••' + id.slice(-4)
+  return id
 }
 
 function score(q: string, qa: QA) {
@@ -41,7 +41,6 @@ export async function askSupport(input: string) {
   const ids = input.match(ORDER_RE) || []
   let status: any = null
   if (ids.length) {
-    // only show last 4 chars for display
     status = await getOrderStatus(ids[0])
   }
   const ranked = (GT as QA[]).map(qa => ({ qa, s: score(input, qa) })).sort((a, b) => b.s - a.s)

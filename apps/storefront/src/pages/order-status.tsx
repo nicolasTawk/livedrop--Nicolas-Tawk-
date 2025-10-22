@@ -20,7 +20,7 @@ export default function OrderStatusPage() {
     <div className="max-w-3xl mx-auto px-4 py-6">
       <h2 className="text-xl font-semibold mb-3">Order Status</h2>
       <div className="text-sm text-gray-600 mb-4">
-        Order ID: •••{id.slice(-4)}
+        Order ID: {id}
       </div>
       <OrderTracking orderId={id} />
     </div>

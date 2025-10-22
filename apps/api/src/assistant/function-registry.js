@@ -138,12 +138,18 @@ class FunctionRegistry {
         console.log('Search products called with:', { query, limit, parameters });
 
         try {
-            // Simple search without regex
+            // Broaden search across key fields with case-insensitive partial matches
             const products = await Product.find({
-                name: { $regex: query, $options: 'i' }
+                $or: [
+                    { name: { $regex: query, $options: 'i' } },
+                    { description: { $regex: query, $options: 'i' } },
+                    { category: { $regex: query, $options: 'i' } },
+                    { tags: { $elemMatch: { $regex: query, $options: 'i' } } }
+                ]
             })
                 .limit(limit)
-                .select('name description price imageUrl stock');
+                .select('name description price imageUrl stock')
+                .lean();
 
             return {
                 success: true,
