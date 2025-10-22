@@ -50,7 +50,9 @@ router.get('/', async (req, res) => {
         const products = await Product.find(query)
             .sort(sortObj)
             .skip(skip)
-            .limit(limitNum);
+            .limit(limitNum)
+            .select('name description price category tags imageUrl stock createdAt')
+            .lean();
 
         const total = await Product.countDocuments(query);
 

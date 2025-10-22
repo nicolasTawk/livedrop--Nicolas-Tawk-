@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import { listProducts } from '../lib/api'
 import ProductGrid from '../components/organisms/product-grid'
 
@@ -18,19 +18,28 @@ export default function CatalogPage() {
   const [tag, setTag] = useState('')
   const [sort, setSort] = useState<'name' | 'price_asc' | 'price_desc'>('name')
   const [products, setProducts] = useState<Product[]>([])
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    loadProducts()
+    // reset when filters change
+    setProducts([])
+    setPage(1)
+    setHasMore(true)
+    loadProducts(1, true)
   }, [q, tag, sort])
 
-  const loadProducts = async () => {
+  const loadProducts = async (nextPage = page, reset = false) => {
     try {
       setLoading(true)
       setError('')
-      const result = await listProducts(q, tag, sort, 1, 50)
-      setProducts(result.products)
+      const result = await listProducts(q, tag, sort, nextPage, 12)
+      setProducts(prev => reset ? result.products : [...prev, ...result.products])
+      setHasMore(nextPage < result.pagination.pages)
+      setPage(nextPage)
     } catch (err) {
       setError('Failed to load products')
       console.error('Error loading products:', err)
@@ -38,6 +47,24 @@ export default function CatalogPage() {
       setLoading(false)
     }
   }
+
+  // Infinite scroll: observe bottom sentinel
+  useEffect(() => {
+    if (!hasMore || loading) return
+    const el = sentinelRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && hasMore && !loading) {
+          loadProducts(page + 1)
+        }
+      }
+    }, { rootMargin: '200px 0px' })
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [hasMore, loading, page])
 
   const allTags = useMemo(() => {
     const s = new Set<string>()
@@ -55,7 +82,7 @@ export default function CatalogPage() {
     return out
   }, [products, q, tag])
 
-  if (loading) {
+  if (loading && products.length === 0) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center py-8">Loading products...</div>
@@ -97,6 +124,12 @@ export default function CatalogPage() {
         price: p.price,
         image: p.imageUrl || '/logo.svg'
       }))} />
+
+      {/* Sentinel for infinite scroll */}
+      <div ref={sentinelRef} className="h-10" aria-hidden="true" />
+      {!hasMore && (
+        <div className="text-center text-sm text-gray-500 mb-6">No more products</div>
+      )}
     </div>
   )
 }
